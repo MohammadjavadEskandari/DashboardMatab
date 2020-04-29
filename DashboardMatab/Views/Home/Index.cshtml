@@ -1,0 +1,352 @@
+﻿@model DashboardMatab.Models.Entities.DtoModel
+@using DashboardMatab.Models;
+@using System.Collections.Generic;
+@using System.Linq;
+@{
+    ViewBag.Title = "Home Page";
+
+
+}
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+
+                <div class="panel panel-primary" style="margin-right:10px">
+                    <div class="panel-heading">جستجو</div>
+                    <div class="panel-body row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+
+                            <table style="margin:5px">
+                                <tr style="margin-right:35px">
+                                    <td>
+                                        <p>شماره پرونده:</p>
+                                    </td>
+                                    <td>
+                                        <p class="pText" id="_PCode"></p>
+                                    </td>
+
+                                </tr>
+                                <tr style="padding-right:35px ">
+                                    <td>
+                                        <p>نام ونام خانوادگی:</p>
+                                    </td>
+                                    <td>
+
+                                        <p class="pText" id="_FullName"></p>
+                                    </td>
+                                </tr>
+                                <tr style="padding-right:35px ">
+                                    <td>
+                                        <p>سن:</p>
+                                    </td>
+                                    <td>
+                                        <p class="pText" id="_Age"></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <table style="margin:5px">
+                                <tr style="margin-right:35px ">
+                                    <td>
+                                        <p>شماره پرونده:</p>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="TblParvande.ParvandeCode" value="@Model.TblParvande.ParvandeCode" class="form-control" />
+                                    </td>
+
+                                </tr>
+                                <tr style="padding-right:35px ">
+                                    <td>
+                                        <p>نام:</p>
+                                    </td>
+                                    <td>
+                                        <input id="TblParvande_Fname" name="TblParvande.Fname" value="@Model.TblParvande.Fname" type="text" class="form-control" />
+                                    </td>
+                                </tr>
+                                <tr style="padding-right:35px ">
+                                    <td>
+                                        <p>نام خانوادگی:</p>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="TblParvande.Lname" value="@Model.TblParvande.Lname" class="form-control" />
+                                    </td>
+                                </tr>
+                                <tr style="padding-right:35px ">
+                                    <td>
+                                        <p>موبایل:</p>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="TblParvande.Mobile" value="@Model.TblParvande.Mobile" class="form-control" />
+                                    </td>
+                                </tr>
+                                <tr style="padding-right:35px ">
+                                    <td>
+                                        <p>کدملی:</p>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="TblParvande.National_Id" value="@Model.TblParvande.National_Id" class="form-control" />
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <input type="submit" class="col-12 btn btn-primary" value="جستجو" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <div class="row col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                            <div>
+                                @if (Model.listTblParvande.Count > 0)
+                                {
+                                    foreach (var item in Model.listTblParvande)
+                                    {
+                                        <div class="row" style="margin-left:5px;display:inline-flex">
+                                            <p style="margin-left:15px;" class="btn btn-default" onclick="Get(@item.ParvandeID)">@item.Lname  @item.Fname</p>
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="Divloading" style="display:none; text-align:center">
+
+            <img style="width:20%" src="~/Content/ImgLoading/Spin-Preloader.gif" />
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="DivData" style="display:none">
+            <div class="row">
+
+                <div class="panel panel-primary" style="direction:ltr; margin-right:10px">
+                    <div class="panel-heading">داشبورد</div>
+                    <div class="panel-body">
+                        <div class="row " style="margin:5px;">
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Routine Medication</div>
+                                <div class="panel-body"><p id="_RoutineMedication"></p> </div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">PMHX/FHX</div>
+                                <div class="panel-body"><p id="_PMH"></p></div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Chief Compalints</div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td id="_ChiefDate"></td>
+                                            <td id="_Chief"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Allergies</div>
+                                <div class="panel-body"><p id="_Allergies"></p></div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Social HX</div>
+                                <div class="panel-body"><p id="_SocialHX"></p></div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Problem List Hx</div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td id="_ProblemListDate"></td>
+                                            <td id="_ProblemList"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Plan / Orders</div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td id="_PlanOrdersDate"></td>
+                                            <td id="_PlanOrders"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Diagnosis Hx</div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td id="_DiagnosisHxDate"></td>
+                                            <td id="_DiagnosisHx"></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-warning col-md-4">
+                                <div class="panel-heading">Medication Hx</div>
+                                <div class="panel-body" id="Div_MedicationHX">
+
+                                    <table class="table table-responsive table-bordered " id="_MedicationHX">
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-warning col-md-12">
+                                <div class="panel-heading">Lab Hx</div>
+                                <div class="panel-body" id="Tbl_LabHx">
+                                    <table class="table table-responsive table-bordered " id="_LabHx">
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+}
+
+<script>
+    function Get(item) {
+        var model = {
+            DataJson: item
+        }
+        $("#Divloading").css("display", "")
+        $("#DivData").css("display", "none")
+        $.post("/Home/GetParvandeById", model, function (res) {
+
+            _CheckParentResult(res);
+            $("#Divloading").css("display", "none")
+            $("#DivData").css("display", "")
+        });
+        //MyAjax("/Home/GetParvandeById", item, _CheckParentResult);
+
+    }
+
+    function clear() {
+        $("#_PCode").text("")
+        $("#_FullName").text("")
+        $("#_Age").text("")
+        $("#_RoutineMedication").text("")
+        $("#_PMH").text("")
+        $("#_Allergies").text("")
+        $("#_SocialHX").text("")
+        $("#_ChiefDate").text("")
+        $("#_Chief").text("")
+
+        $("#_ProblemListDate").text("")
+        $("#_ProblemList").text("")
+
+        $("#_DiagnosisHxDate").text("")
+        $("#_DiagnosisHx").text("")
+
+        $("#_PlanOrdersDate").text("")
+        $("#_PlanOrders").text("")
+
+        $("#_LabHx tr").remove();
+        $("#_MedicationHX tr").remove();
+
+
+    }
+
+    function _CheckParentResult(data) {
+
+        clear();
+        var d = JSON.parse(data)
+        $.each(d, function (index, value) {
+
+            if (index == "TblParvande" && value != null) {
+                
+                $("#_PCode").text(value.ParvandeCode)
+                $("#_FullName").text(value.Fname + ' ' + value.Lname)
+                $("#_Age").text(value.Age + ' ' + 'سال')
+            }
+            if (index == "Matab_PMH" && value != null) {
+            
+                $("#_RoutineMedication").text(value.RoutineMedications)
+                $("#_PMH").text(value.PMH)
+                $("#_Allergies").text(value.Allergies)
+                $("#_SocialHX").text(value.SocialHistory)
+            }
+            if (index == "Matab_Visit" && value != null) {
+            
+                $("#_ChiefDate").text(value.VisitDate)
+                $("#_Chief").text(value.PatientsComplaints)
+
+                $("#_ProblemListDate").text(value.VisitDate)
+                $("#_ProblemList").text(value.PresentIllness)
+
+                $("#_DiagnosisHxDate").text(value.VisitDate)
+                $("#_DiagnosisHx").text(value.Diagnose)
+
+                $("#_PlanOrdersDate").text(value.VisitDate)
+                $("#_PlanOrders").text(value.VisitPlan)
+            }
+            if (index == "ViewMatab_LabTests" && value != null) {
+
+                var d = JSON.stringify(value)
+
+                ConvertToTable("#_LabHx", d)
+
+            }
+            if (index == "matab_VisitDrugs" && index != null) {
+                var d = JSON.stringify(value)
+                ConvertToTable("#_MedicationHX", d)
+            }
+
+        });
+
+
+    }
+    function MargeAllEntityJson() {
+        const json = {
+            personel: {
+                FirstName: $("#first-name").val(),
+                LastName: $("#last-name").val(),
+                FatherName: $("#Father-name").val(),
+                NationalCode: $("#NationalCode").val(),
+                BrithDate: $("#Year").val() + "-" + $("#Month").val() + "-" + $("#Day").val(),
+                Gender: $("input[name='gender']:checked").val(),
+                MaritalStatus: $("input[name='MaritalStatus']:checked").val(),
+                Job: $('#Job').find(":selected").text(),
+                Education: $('#Education').find(":selected").text(),
+                PrevSickness: $('#PrevSickness').val(),
+                PersonelType: "2",
+                Addresses: [CreateAddressJson()],
+                Phones: [CreatePhonesJson()],
+            }
+        }
+        //alert(JSON.stringify(json))
+        return JSON.stringify(json);
+    }
+
+
+
+</script>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5eee9eca62a147f59cc26052a43739e7" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="MatabDBModel.TblParvande" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatabDBModel.Matab_PMH" Width="1.5" PointX="3.375" PointY="4.25" />
+        <EntityTypeShape EntityType="MatabDBModel.Matab_Visit" Width="1.5" PointX="6.125" PointY="3.5" />
+        <EntityTypeShape EntityType="MatabDBModel.Matab_LabTests" Width="1.5" PointX="14" PointY="4.625" />
+        <EntityTypeShape EntityType="MatabDBModel.TblLabTests" Width="1.5" PointX="11.25" PointY="4.625" />
+        <EntityTypeShape EntityType="MatabDBModel.Matab_VisitDrug" Width="1.5" PointX="8.375" PointY="4.375" />
+        <AssociationConnector Association="MatabDBModel.FK_Matab_VisitDrug_Matab_Visit" />
+        <EntityTypeShape EntityType="MatabDBModel.tbl_DrugOrder" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MatabDBModel.TblDrugs" Width="1.5" PointX="3.375" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

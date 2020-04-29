@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MatabDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Matab_LabTests">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParvandeCode" Type="bigint" />
+          <Property Name="TestCode" Type="int" />
+          <Property Name="LabDate" Type="nvarchar" MaxLength="10" />
+          <Property Name="LabResult" Type="nvarchar" MaxLength="100" />
+          <Property Name="MinRange" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MaxRange" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RangeComment" Type="nvarchar" MaxLength="250" />
+          <Property Name="LabResultDate" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Matab_PMH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParvandeCode" Type="bigint" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="nvarchar" MaxLength="10" />
+          <Property Name="PMH" Type="nvarchar" MaxLength="800" />
+          <Property Name="Allergies" Type="nvarchar" MaxLength="800" />
+          <Property Name="RoutineMedications" Type="nvarchar" MaxLength="800" />
+          <Property Name="SocialHistory" Type="nvarchar" MaxLength="800" />
+        </EntityType>
+        <EntityType Name="Matab_Visit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VisitDate" Type="nvarchar" MaxLength="10" />
+          <Property Name="ParvandeCode" Type="bigint" />
+          <Property Name="PatientsComplaints" Type="nvarchar(max)" />
+          <Property Name="PresentIllness" Type="nvarchar(max)" />
+          <Property Name="VisitPlan" Type="nvarchar(max)" />
+          <Property Name="Diagnose" Type="nvarchar(max)" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="Hight" Type="float" />
+          <Property Name="Head" Type="float" />
+          <Property Name="Systolic" Type="float" />
+          <Property Name="Diastolic" Type="float" />
+          <Property Name="DrugDose" Type="float" />
+          <Property Name="DocID" Type="int" />
+          <Property Name="DrugDesc" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Matab_VisitDrug">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Matab_VisitID" Type="bigint" Nullable="false" />
+          <Property Name="DrugID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="DrugOrderID" Type="float" />
+          <Property Name="DrugDose" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_DrugOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="num" Type="float" />
+          <Property Name="Order" Type="nvarchar" MaxLength="255" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invisible" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblDrugs">
+          <Key>
+            <PropertyRef Name="DrgID" />
+          </Key>
+          <Property Name="DrgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GenericName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Strength" Type="nvarchar" MaxLength="10" />
+          <Property Name="Direction" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="nvarchar" MaxLength="20" />
+          <Property Name="Refills" Type="nvarchar" MaxLength="10" />
+          <Property Name="DEAneed" Type="bit" Nullable="false" />
+          <Property Name="DEAnotNeed" Type="bit" Nullable="false" />
+          <Property Name="DrgOrderID" Type="int" />
+          <Property Name="DrgCount" Type="float" />
+          <Property Name="DrgSectionID" Type="int" />
+          <Property Name="Invisible" Type="bit" />
+          <Property Name="DrgMojoodi" Type="float" />
+        </EntityType>
+        <EntityType Name="TblLabTests">
+          <Key>
+            <PropertyRef Name="TestCode" />
+          </Key>
+          <Property Name="TestType" Type="smallint" />
+          <Property Name="TestCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LowVal" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="HighVal" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="UnitMeasure" Type="nvarchar" MaxLength="100" />
+          <Property Name="Pos" Type="bit" Nullable="false" />
+          <Property Name="Neg" Type="bit" Nullable="false" />
+          <Property Name="NormalVal" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="TestFullName" Type="nvarchar" MaxLength="250" />
+          <Property Name="TestNationalCode" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TblParvande">
+          <Key>
+            <PropertyRef Name="ParvandeID" />
+          </Key>
+          <Property Name="ParvandeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParvandeCode" Type="bigint" />
+          <Property Name="Fname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lname" Type="nvarchar" MaxLength="50" />
+          <Property Name="InsID" Type="int" />
+          <Property Name="InsBookNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateEtebar" Type="nchar" MaxLength="10" />
+          <Property Name="InsAddID" Type="int" />
+          <Property Name="InsAddBookNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="OzvID" Type="int" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateTashkil" Type="nchar" MaxLength="10" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="SaatSabt" Type="nchar" MaxLength="5" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="BurnDate" Type="nchar" MaxLength="10" />
+          <Property Name="MelliCode" Type="nchar" MaxLength="10" />
+          <Property Name="Doctor_Default" Type="int" />
+          <Property Name="ParvandeNumDasti" Type="nvarchar" MaxLength="200" />
+          <Property Name="SectionID" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsAlarmInPaziresh" Type="bit" />
+          <Property Name="National_Id" Type="int" />
+          <Property Name="parent" Type="nvarchar" MaxLength="30" />
+          <Property Name="Taahol" Type="int" />
+          <Property Name="Shoghl" Type="nvarchar" MaxLength="60" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="SkineType" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="JobFax" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShomareShenasname" Type="nvarchar" MaxLength="20" />
+          <Property Name="MoarefID" Type="int" />
+          <Property Name="VIPCardID" Type="nvarchar" MaxLength="300" />
+          <Property Name="IsConnectToMehrYasanCRM" Type="bit" />
+          <Property Name="Ashnayi" Type="int" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="Degree" Type="int" />
+        </EntityType>
+        <Association Name="FK_Matab_VisitDrug_Matab_Visit">
+          <End Role="Matab_Visit" Type="Self.Matab_Visit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matab_VisitDrug" Type="Self.Matab_VisitDrug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matab_Visit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Matab_VisitDrug">
+              <PropertyRef Name="Matab_VisitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MatabDBModelStoreContainer">
+          <EntitySet Name="Matab_LabTests" EntityType="Self.Matab_LabTests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matab_PMH" EntityType="Self.Matab_PMH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matab_Visit" EntityType="Self.Matab_Visit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matab_VisitDrug" EntityType="Self.Matab_VisitDrug" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_DrugOrder" EntityType="Self.tbl_DrugOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblDrugs" EntityType="Self.TblDrugs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblLabTests" EntityType="Self.TblLabTests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblParvande" EntityType="Self.TblParvande" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Matab_VisitDrug_Matab_Visit" Association="Self.FK_Matab_VisitDrug_Matab_Visit">
+            <End Role="Matab_Visit" EntitySet="Matab_Visit" />
+            <End Role="Matab_VisitDrug" EntitySet="Matab_VisitDrug" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MatabDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblParvande">
+          <Key>
+            <PropertyRef Name="ParvandeID" />
+          </Key>
+          <Property Name="ParvandeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParvandeCode" Type="Int64" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsID" Type="Int32" />
+          <Property Name="InsBookNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateEtebar" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InsAddID" Type="Int32" />
+          <Property Name="InsAddBookNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OzvID" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateTashkil" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="SaatSabt" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BurnDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MelliCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Doctor_Default" Type="Int32" />
+          <Property Name="ParvandeNumDasti" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SectionID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAlarmInPaziresh" Type="Boolean" />
+          <Property Name="National_Id" Type="Int32" />
+          <Property Name="parent" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Taahol" Type="Int32" />
+          <Property Name="Shoghl" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="SkineType" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="JobFax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShomareShenasname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MoarefID" Type="Int32" />
+          <Property Name="VIPCardID" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsConnectToMehrYasanCRM" Type="Boolean" />
+          <Property Name="Ashnayi" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Degree" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="MatabDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblParvande" EntityType="Self.TblParvande" />
+          <EntitySet Name="Matab_PMH" EntityType="MatabDBModel.Matab_PMH" />
+          <EntitySet Name="Matab_Visit" EntityType="MatabDBModel.Matab_Visit" />
+          <EntitySet Name="Matab_LabTests" EntityType="MatabDBModel.Matab_LabTests" />
+          <EntitySet Name="TblLabTests" EntityType="MatabDBModel.TblLabTests" />
+          <EntitySet Name="Matab_VisitDrug" EntityType="MatabDBModel.Matab_VisitDrug" />
+          <AssociationSet Name="FK_Matab_VisitDrug_Matab_Visit" Association="MatabDBModel.FK_Matab_VisitDrug_Matab_Visit">
+            <End Role="Matab_Visit" EntitySet="Matab_Visit" />
+            <End Role="Matab_VisitDrug" EntitySet="Matab_VisitDrug" />
+          </AssociationSet>
+          <EntitySet Name="tbl_DrugOrder" EntityType="MatabDBModel.tbl_DrugOrder" />
+          <EntitySet Name="TblDrugs" EntityType="MatabDBModel.TblDrugs" />
+        </EntityContainer>
+        <EntityType Name="Matab_PMH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParvandeCode" Type="Int64" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PMH" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="Allergies" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="RoutineMedications" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="SocialHistory" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Matab_Visit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VisitDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ParvandeCode" Type="Int64" />
+          <Property Name="PatientsComplaints" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PresentIllness" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VisitPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Diagnose" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="Hight" Type="Double" />
+          <Property Name="Head" Type="Double" />
+          <Property Name="Systolic" Type="Double" />
+          <Property Name="Diastolic" Type="Double" />
+          <Property Name="DrugDose" Type="Double" />
+          <Property Name="DocID" Type="Int32" />
+          <Property Name="DrugDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Matab_VisitDrug" Relationship="MatabDBModel.FK_Matab_VisitDrug_Matab_Visit" FromRole="Matab_Visit" ToRole="Matab_VisitDrug" />
+        </EntityType>
+        <EntityType Name="Matab_LabTests">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParvandeCode" Type="Int64" />
+          <Property Name="TestCode" Type="Int32" />
+          <Property Name="LabDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LabResult" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MinRange" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaxRange" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RangeComment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LabResultDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblLabTests">
+          <Key>
+            <PropertyRef Name="TestCode" />
+          </Key>
+          <Property Name="TestType" Type="Int16" />
+          <Property Name="TestCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LowVal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HighVal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitMeasure" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Pos" Type="Boolean" Nullable="false" />
+          <Property Name="Neg" Type="Boolean" Nullable="false" />
+          <Property Name="NormalVal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestFullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TestNationalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Matab_VisitDrug">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Matab_VisitID" Type="Int64" Nullable="false" />
+          <Property Name="DrugID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="DrugOrderID" Type="Double" />
+          <Property Name="DrugDose" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Matab_Visit" Relationship="MatabDBModel.FK_Matab_VisitDrug_Matab_Visit" FromRole="Matab_VisitDrug" ToRole="Matab_Visit" />
+        </EntityType>
+        <Association Name="FK_Matab_VisitDrug_Matab_Visit">
+          <End Type="MatabDBModel.Matab_Visit" Role="Matab_Visit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MatabDBModel.Matab_VisitDrug" Role="Matab_VisitDrug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matab_Visit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Matab_VisitDrug">
+              <PropertyRef Name="Matab_VisitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_DrugOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="num" Type="Double" />
+          <Property Name="Order" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invisible" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TblDrugs">
+          <Key>
+            <PropertyRef Name="DrgID" />
+          </Key>
+          <Property Name="DrgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GenericName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Strength" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Direction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Refills" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DEAneed" Type="Boolean" Nullable="false" />
+          <Property Name="DEAnotNeed" Type="Boolean" Nullable="false" />
+          <Property Name="DrgOrderID" Type="Int32" />
+          <Property Name="DrgCount" Type="Double" />
+          <Property Name="DrgSectionID" Type="Int32" />
+          <Property Name="Invisible" Type="Boolean" />
+          <Property Name="DrgMojoodi" Type="Double" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MatabDBModelStoreContainer" CdmEntityContainer="MatabDBEntities">
+          <EntitySetMapping Name="TblParvande">
+            <EntityTypeMapping TypeName="MatabDBModel.TblParvande">
+              <MappingFragment StoreEntitySet="TblParvande">
+                <ScalarProperty Name="ParvandeID" ColumnName="ParvandeID" />
+                <ScalarProperty Name="ParvandeCode" ColumnName="ParvandeCode" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="InsID" ColumnName="InsID" />
+                <ScalarProperty Name="InsBookNo" ColumnName="InsBookNo" />
+                <ScalarProperty Name="DateEtebar" ColumnName="DateEtebar" />
+                <ScalarProperty Name="InsAddID" ColumnName="InsAddID" />
+                <ScalarProperty Name="InsAddBookNo" ColumnName="InsAddBookNo" />
+                <ScalarProperty Name="OzvID" ColumnName="OzvID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="DateTashkil" ColumnName="DateTashkil" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SaatSabt" ColumnName="SaatSabt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BurnDate" ColumnName="BurnDate" />
+                <ScalarProperty Name="MelliCode" ColumnName="MelliCode" />
+                <ScalarProperty Name="Doctor_Default" ColumnName="Doctor_Default" />
+                <ScalarProperty Name="ParvandeNumDasti" ColumnName="ParvandeNumDasti" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsAlarmInPaziresh" ColumnName="IsAlarmInPaziresh" />
+                <ScalarProperty Name="National_Id" ColumnName="National_Id" />
+                <ScalarProperty Name="parent" ColumnName="parent" />
+                <ScalarProperty Name="Taahol" ColumnName="Taahol" />
+                <ScalarProperty Name="Shoghl" ColumnName="Shoghl" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="SkineType" ColumnName="SkineType" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="JobFax" ColumnName="JobFax" />
+                <ScalarProperty Name="ShomareShenasname" ColumnName="ShomareShenasname" />
+                <ScalarProperty Name="MoarefID" ColumnName="MoarefID" />
+                <ScalarProperty Name="VIPCardID" ColumnName="VIPCardID" />
+                <ScalarProperty Name="IsConnectToMehrYasanCRM" ColumnName="IsConnectToMehrYasanCRM" />
+                <ScalarProperty Name="Ashnayi" ColumnName="Ashnayi" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matab_PMH">
+            <EntityTypeMapping TypeName="MatabDBModel.Matab_PMH">
+              <MappingFragment StoreEntitySet="Matab_PMH">
+                <ScalarProperty Name="SocialHistory" ColumnName="SocialHistory" />
+                <ScalarProperty Name="RoutineMedications" ColumnName="RoutineMedications" />
+                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
+                <ScalarProperty Name="PMH" ColumnName="PMH" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ParvandeCode" ColumnName="ParvandeCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matab_Visit">
+            <EntityTypeMapping TypeName="MatabDBModel.Matab_Visit">
+              <MappingFragment StoreEntitySet="Matab_Visit">
+                <ScalarProperty Name="DrugDesc" ColumnName="DrugDesc" />
+                <ScalarProperty Name="DocID" ColumnName="DocID" />
+                <ScalarProperty Name="DrugDose" ColumnName="DrugDose" />
+                <ScalarProperty Name="Diastolic" ColumnName="Diastolic" />
+                <ScalarProperty Name="Systolic" ColumnName="Systolic" />
+                <ScalarProperty Name="Head" ColumnName="Head" />
+                <ScalarProperty Name="Hight" ColumnName="Hight" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Diagnose" ColumnName="Diagnose" />
+                <ScalarProperty Name="VisitPlan" ColumnName="VisitPlan" />
+                <ScalarProperty Name="PresentIllness" ColumnName="PresentIllness" />
+                <ScalarProperty Name="PatientsComplaints" ColumnName="PatientsComplaints" />
+                <ScalarProperty Name="ParvandeCode" ColumnName="ParvandeCode" />
+                <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matab_LabTests">
+            <EntityTypeMapping TypeName="MatabDBModel.Matab_LabTests">
+              <MappingFragment StoreEntitySet="Matab_LabTests">
+                <ScalarProperty Name="LabResultDate" ColumnName="LabResultDate" />
+                <ScalarProperty Name="RangeComment" ColumnName="RangeComment" />
+                <ScalarProperty Name="MaxRange" ColumnName="MaxRange" />
+                <ScalarProperty Name="MinRange" ColumnName="MinRange" />
+                <ScalarProperty Name="LabResult" ColumnName="LabResult" />
+                <ScalarProperty Name="LabDate" ColumnName="LabDate" />
+                <ScalarProperty Name="TestCode" ColumnName="TestCode" />
+                <ScalarProperty Name="ParvandeCode" ColumnName="ParvandeCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblLabTests">
+            <EntityTypeMapping TypeName="MatabDBModel.TblLabTests">
+              <MappingFragment StoreEntitySet="TblLabTests">
+                <ScalarProperty Name="TestNationalCode" ColumnName="TestNationalCode" />
+                <ScalarProperty Name="TestFullName" ColumnName="TestFullName" />
+                <ScalarProperty Name="NormalVal" ColumnName="NormalVal" />
+                <ScalarProperty Name="Neg" ColumnName="Neg" />
+                <ScalarProperty Name="Pos" ColumnName="Pos" />
+                <ScalarProperty Name="UnitMeasure" ColumnName="UnitMeasure" />
+                <ScalarProperty Name="HighVal" ColumnName="HighVal" />
+                <ScalarProperty Name="LowVal" ColumnName="LowVal" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="TestCode" ColumnName="TestCode" />
+                <ScalarProperty Name="TestType" ColumnName="TestType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matab_VisitDrug">
+            <EntityTypeMapping TypeName="MatabDBModel.Matab_VisitDrug">
+              <MappingFragment StoreEntitySet="Matab_VisitDrug">
+                <ScalarProperty Name="DrugDose" ColumnName="DrugDose" />
+                <ScalarProperty Name="DrugOrderID" ColumnName="DrugOrderID" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="DrugID" ColumnName="DrugID" />
+                <ScalarProperty Name="Matab_VisitID" ColumnName="Matab_VisitID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_DrugOrder">
+            <EntityTypeMapping TypeName="MatabDBModel.tbl_DrugOrder">
+              <MappingFragment StoreEntitySet="tbl_DrugOrder">
+                <ScalarProperty Name="Invisible" ColumnName="Invisible" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="num" ColumnName="num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblDrugs">
+            <EntityTypeMapping TypeName="MatabDBModel.TblDrugs">
+              <MappingFragment StoreEntitySet="TblDrugs">
+                <ScalarProperty Name="DrgMojoodi" ColumnName="DrgMojoodi" />
+                <ScalarProperty Name="Invisible" ColumnName="Invisible" />
+                <ScalarProperty Name="DrgSectionID" ColumnName="DrgSectionID" />
+                <ScalarProperty Name="DrgCount" ColumnName="DrgCount" />
+                <ScalarProperty Name="DrgOrderID" ColumnName="DrgOrderID" />
+                <ScalarProperty Name="DEAnotNeed" ColumnName="DEAnotNeed" />
+                <ScalarProperty Name="DEAneed" ColumnName="DEAneed" />
+                <ScalarProperty Name="Refills" ColumnName="Refills" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="Strength" ColumnName="Strength" />
+                <ScalarProperty Name="GenericName" ColumnName="GenericName" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="DrgID" ColumnName="DrgID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
