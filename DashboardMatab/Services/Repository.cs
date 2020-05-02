@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using System.Web.Management;
 
 namespace DashboardMatab.Services
 {
@@ -19,37 +20,39 @@ namespace DashboardMatab.Services
         {
             db = _db;
         }
-       
+
         public List<TblParvande> getParvande(TblParvande tblParvande)
         {
 
-            //if (tblParvande.Fname is null) tblParvande.Fname = "";
-            //if (tblParvande.Lname is null) tblParvande.Lname = "";
-            //if (tblParvande.Mobile is null) tblParvande.Mobile = "";
+            if (tblParvande.ParvandeCode > 0)
+            {
+                var data1 = db.TblParvande.Where(f =>f.ParvandeCode == tblParvande.ParvandeCode).ToList();
+                return data1;
+            }
+            else
+            {
+
+                if (tblParvande.Fname is null) tblParvande.Fname = "";
+                if (tblParvande.Lname is null) tblParvande.Lname = "";
+                if (tblParvande.Mobile is null) tblParvande.Mobile = "";
+                if (tblParvande.MelliCode is null) tblParvande.MelliCode = "";
+
+                var data = db.TblParvande
+                    .Where(f =>
+                    f.Lname.Contains(tblParvande.Lname) &&
+                    f.Fname.Contains(tblParvande.Fname) &&
+                    f.Mobile.StartsWith(tblParvande.Mobile) &&
+                    f.MelliCode.StartsWith(tblParvande.MelliCode)
+
+                ).ToList();
+                return data;
+            }
 
 
-            long? ParvandeCodeC = tblParvande.ParvandeCode;
-
-            //var data = (from p in db.TblParvande
-            //            where (tblParvande.Lname != null ? tblParvande.Lname.Contains(p.Lname) : 1 == 1) &&
-            //                  (tblParvande.Fname != null ? tblParvande.Fname.Contains(p.Fname) : 1 == 1) &&
-            //                  (tblParvande.Mobile != null ? tblParvande.Mobile.Contains(p.Mobile) : 1 == 1) &&
-            //                  (tblParvande.MelliCode != null ? p.MelliCode.Equals(tblParvande.MelliCode) : 1 == 1)
-            //            select p).ToList().Where(x => x.ParvandeCode.Equals(ParvandeCodeC)).ToList();
-
-            var data = db.TblParvande
-                .Where(f =>
-                f.Lname.Contains(tblParvande.Lname) ||
-                f.Fname.Contains(tblParvande.Fname) ||
-                f.Mobile.Contains(tblParvande.Mobile) ||
-                f.MelliCode.Contains(tblParvande.MelliCode)
-
-            ).ToList();
 
 
 
 
-            return data;
         }
 
         public TblParvande ParvandeById(int id)
@@ -62,25 +65,26 @@ namespace DashboardMatab.Services
         }
         public Matab_Visit_ViewModel GetMatab_Visit(int ParvarndeCode)
         {
-            var data = db.Matab_Visit.Where(f => f.ParvandeCode == ParvarndeCode).Select(f=>new Matab_Visit_ViewModel() { 
-            
-                Diagnose=f.Diagnose,
-                Diastolic=f.Diastolic,
-                DocID=f.DocID,
-                DrugDesc=f.DrugDesc,
-                DrugDose=f.DrugDose,
-                Head=f.Head,
-                Hight=f.Hight,
-                ID=f.ID,
-                ParvandeCode=f.ParvandeCode,
-                PatientsComplaints=f.PatientsComplaints,
-                PresentIllness=f.PresentIllness,
-                Systolic=f.Systolic,
-                VisitDate=f.VisitDate,
-                VisitPlan=f.VisitPlan,
-                Weight=f.Weight
-            
-            }) .FirstOrDefault() ;
+            var data = db.Matab_Visit.Where(f => f.ParvandeCode == ParvarndeCode).Select(f => new Matab_Visit_ViewModel()
+            {
+
+                Diagnose = f.Diagnose,
+                Diastolic = f.Diastolic,
+                DocID = f.DocID,
+                DrugDesc = f.DrugDesc,
+                DrugDose = f.DrugDose,
+                Head = f.Head,
+                Hight = f.Hight,
+                ID = f.ID,
+                ParvandeCode = f.ParvandeCode,
+                PatientsComplaints = f.PatientsComplaints,
+                PresentIllness = f.PresentIllness,
+                Systolic = f.Systolic,
+                VisitDate = f.VisitDate,
+                VisitPlan = f.VisitPlan,
+                Weight = f.Weight
+
+            }).FirstOrDefault();
 
             return data;
         }
